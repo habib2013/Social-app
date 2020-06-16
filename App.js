@@ -1,114 +1,58 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+/* eslint-disable quotes */
+/* eslint-disable prettier/prettier */
+import { createAppContainer,createSwitchNavigator } from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
+import React  from 'react';
+import LoadingScreen from './Screens/loadingScreen';
+import ReginScreen from './Screens/loginScreen';
+import RegisterScreen from './Screens/registerScreen';
+import LoginScreen from './Screens/loginScreen';
+import HomeScreen from './Screens/homeScreen';
+import * as firebase from 'firebase';
 
-import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
-
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-const App: () => React$Node = () => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
-  );
+var firebaseConfig = {
+  apiKey: "AIzaSyAtMrui49AfIVhQmHCaKpnoYATLcpgGn8k",
+  authDomain: "social-app-a0f46.firebaseapp.com",
+  databaseURL: "https://social-app-a0f46.firebaseio.com",
+  projectId: "social-app-a0f46",
+  storageBucket: "social-app-a0f46.appspot.com",
+  messagingSenderId: "668057381690",
+  appId: "1:668057381690:web:8cb0e52cecd57181e63e03",
+  measurementId: "G-T3SMV9828X"
 };
 
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
+firebase.initializeApp(firebaseConfig);
 
-export default App;
+const AppStack = createStackNavigator({
+  Home: HomeScreen
+})
+
+const AuthStack = createStackNavigator({
+  Login:LoginScreen,
+  Register: RegisterScreen,
+})
+
+
+
+class App extends React.Component {
+  
+  render() { 
+    return (
+<LoadingScreen/>
+
+);
+  }
+}
+
+export default createAppContainer(
+createSwitchNavigator({
+  Loading:LoadingScreen,
+  App:AppStack,
+  Auth:AuthStack
+},
+{
+  initialRouteName:"Loading"
+}
+)
+
+)
