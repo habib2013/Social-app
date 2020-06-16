@@ -21,6 +21,8 @@ var firebaseConfig = {
   measurementId: "G-T3SMV9828X"
 };
 
+// checking it
+
 firebase.initializeApp(firebaseConfig);
 
 const AppStack = createStackNavigator({
