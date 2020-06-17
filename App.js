@@ -7,6 +7,7 @@ import LoadingScreen from './Screens/loadingScreen';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 // import Icon from 'react-native-ionicons';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import iconFont from 'react-native-vector-icons/Fonts/FontAwesome.ttf';
 // import ReginScreen from './Screens/loginScreen';
 import RegisterScreen from './Screens/registerScreen';
 import LoginScreen from './Screens/loginScreen';
@@ -17,6 +18,11 @@ import ProfileScreen from './Screens/ProfileScreen';
 import NotificationScreen from './Screens/NotificationScreen';
 
 import * as firebase from 'firebase';
+
+const iconFontStyles = `@font-face {
+  src: url(${iconFont});
+  font-family: FontAwesome;
+}`;
 
 var firebaseConfig = {
   apiKey: "AIzaSyAtMrui49AfIVhQmHCaKpnoYATLcpgGn8k",
@@ -37,13 +43,21 @@ const AppTabNavigator = createBottomTabNavigator({
   Home: {
     screen:HomeScreen,
     navigationOptions : {
-      tabBarIcon: ({tintColor}) => <Icon name="home" size={24} color={tintColor}/>
+      tabBarIcon: ({tintColor}) => <Icon name="search" size={24} color={tintColor}/>
+    
     }
   },
-  Message: {
+  pencil: {
     screen:MessageScreen,
     navigationOptions : {
-      tabBarIcon: ({tintColor}) => <Icon name="md-chatboxes" size={24} color={tintColor}/>
+      tabBarIcon: ({tintColor}) => <Icon name="pencil" size={24} color={tintColor}/>
+    }
+
+  },
+  Mesage: {
+    screen:MessageScreen,
+    navigationOptions : {
+      tabBarIcon: ({tintColor}) => <Icon name="music" size={24} color={tintColor}/>
     }
   },
 })

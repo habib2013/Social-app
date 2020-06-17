@@ -1,0 +1,24 @@
+-------------------- Auto-Git Log --------------------
+		Wed Jun 17 2020 13:05:19 GMT+0100 (West Africa Standard Time)
+------------------------------------------------------
+
+Modified files:
+* App.js
+* Screens/homeScreen.js
+* Screens/loginScreen.js
+* Screens/registerScreen.js
+* package-lock.json
+* package.json
+
+
+Created files:
+* Screens/MessageScreen.js
+* Screens/NotificationScreen.js
+* Screens/PostScreen.js
+* Screens/ProfileScreen.js
+
+
+Deleted files:
+
+
+Renamed files:
