@@ -4,10 +4,18 @@ import { createAppContainer,createSwitchNavigator } from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import React  from 'react';
 import LoadingScreen from './Screens/loadingScreen';
-import ReginScreen from './Screens/loginScreen';
+import {createBottomTabNavigator} from 'react-navigation-tabs';
+// import Icon from 'react-native-ionicons';
+import Icon from 'react-native-vector-icons/FontAwesome';
+// import ReginScreen from './Screens/loginScreen';
 import RegisterScreen from './Screens/registerScreen';
 import LoginScreen from './Screens/loginScreen';
 import HomeScreen from './Screens/homeScreen';
+import MessageScreen from './Screens/MessageScreen';
+import PostScreen from './Screens/PostScreen';
+import ProfileScreen from './Screens/ProfileScreen';
+import NotificationScreen from './Screens/NotificationScreen';
+
 import * as firebase from 'firebase';
 
 var firebaseConfig = {
@@ -18,38 +26,40 @@ var firebaseConfig = {
   storageBucket: "social-app-a0f46.appspot.com",
   messagingSenderId: "668057381690",
   appId: "1:668057381690:web:8cb0e52cecd57181e63e03",
-  measurementId: "G-T3SMV9828X"
+  measurementId: "G-T3SMV9828X",
 };
 
 // checking it
 
 firebase.initializeApp(firebaseConfig);
 
-const AppStack = createStackNavigator({
-  Home: HomeScreen
+const AppTabNavigator = createBottomTabNavigator({
+  Home: {
+    screen:HomeScreen,
+    navigationOptions : {
+      tabBarIcon: ({tintColor}) => <Icon name="home" size={24} color={tintColor}/>
+    }
+  },
+  Message: {
+    screen:MessageScreen,
+    navigationOptions : {
+      tabBarIcon: ({tintColor}) => <Icon name="md-chatboxes" size={24} color={tintColor}/>
+    }
+  },
 })
 
 const AuthStack = createStackNavigator({
   Login:LoginScreen,
   Register: RegisterScreen,
-})
+});
 
 
 
-class App extends React.Component {
-  
-  render() { 
-    return (
-<LoadingScreen/>
-
-);
-  }
-}
 
 export default createAppContainer(
 createSwitchNavigator({
   Loading:LoadingScreen,
-  App:AppStack,
+  App:AppTabNavigator,
   Auth:AuthStack
 },
 {

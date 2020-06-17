@@ -1,32 +1,60 @@
+/* eslint-disable quotes */
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import {View, Text, StyleSheet,TextInput,TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet,TextInput,TouchableOpacity, StatusBar,LayoutAnimation,Image,KeyboardAvoidingView,SafeAreaView} from 'react-native';
+import * as firebase from 'firebase';
 
 class LoginScreen extends React.Component {
-  state = {};
+static navigationOptions = {
+  header:null
+};
+ 
+
+  state = {
+email: "",
+password: "",
+errorMessage: null
+
+
+  };
+
+handleLogin = () => {
+  const {email,password} = this.state;
+
+  firebase.auth().signInWithEmailAndPassword(email,password).catch(error => this.setState({errorMessage:error.message}))
+}
+
   render() {
     return (
-    <View style={styles.container}>
+      <View style={styles.container}>
+        <SafeAreaView>
+      <KeyboardAvoidingView>
+    <StatusBar barStyle="light-content"></StatusBar>
        <Text style={styles.greeting}>{`Hello again. \n Welcome Back`}</Text>
     <View style={styles.errorMessage}>
-      <Text>Error</Text>
+    {this.state.errorMessage && <Text style={{color:"red",fontSize:13,fontWeight:"600",textAlign:"center"}}>{this.state.errorMessage}</Text>}
     </View>
 
     <View style={styles.form}>
       <View>
         <Text style={styles.inputTitle}>Email Address</Text>
-        <TextInput style={styles.input} autoCapitalize="none"></TextInput>
+        <TextInput returnKeyType="next" keyboardType="email-address" value={this.state.email} style={styles.input} autoCapitalize="none" onChangeText={email => this.setState({email})} ></TextInput>
       </View>
 
       <View style={{marginTop:32}}>
         <Text style={styles.inputTitle}>Password</Text>
-        <TextInput style={styles.input} secureTextEntry autoCapitalize="none"></TextInput>
+        <TextInput returnKeyType="next" value={this.state.password} onChangeText={password => this.setState({password})} style={styles.input} secureTextEntry autoCapitalize="none"></TextInput>
       </View>
 
     </View>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={this.handleLogin}>
         <Text style={{color:"#ffffff"}}>Sign In</Text>
       </TouchableOpacity>
+      <TouchableOpacity onPress={() => this.props.navigation.navigate("Register")} style={{alignSelf:"center",marginTop:32}}>
+        <Text style={{color:"#414959",fontSize: 13}}>New To Social App ? <Text style={{fontWeight: "500",color:"#e9446a"}}>Sign Up</Text> </Text>
+      </TouchableOpacity>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
     </View>
     )  
     ;
